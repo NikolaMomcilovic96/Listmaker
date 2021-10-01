@@ -6,6 +6,8 @@ import com.raywenderlich.listmaker.TaskList
 
 class MainViewModel(private val sharedPreferences: SharedPreferences) : ViewModel() {
     lateinit var onListAdded: (() -> Unit)
+    lateinit var list: TaskList
+    lateinit var onTaskAdded: (()->Unit)
 
     val lists: MutableList<TaskList> by lazy {
         retrieveLists()
@@ -27,5 +29,20 @@ class MainViewModel(private val sharedPreferences: SharedPreferences) : ViewMode
         sharedPreferences.edit().putStringSet(list.name, list.tasks.toHashSet()).apply()
         lists.add(list)
         onListAdded.invoke()
+    }
+
+    fun updateList(list: TaskList) {
+        sharedPreferences.edit().putStringSet(list.name, list.tasks.toHashSet()).apply()
+        lists.add(list)
+    }
+
+    fun refreshLists() {
+        lists.clear()
+        lists.addAll(retrieveLists())
+    }
+
+    fun addTask(task:String){
+        list.tasks.add(task)
+        onTaskAdded.invoke()
     }
 }
