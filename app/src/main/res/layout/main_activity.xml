@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|right"
         android:layout_marginRight="10dp"
-        android:layout_marginBottom="35dp"
+        android:layout_marginBottom="60dp"
         android:clickable="true"
         android:isScrollContainer="false"
         app:srcCompat="@android:drawable/ic_menu_add" />
