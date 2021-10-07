@@ -11,8 +11,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.raywenderlich.listmaker.MainActivity
 import com.raywenderlich.listmaker.TaskList
 import com.raywenderlich.listmaker.databinding.ListDetailFragmentBinding
+import com.raywenderlich.listmaker.ui.main.MainViewModel
 import com.raywenderlich.listmaker.ui.main.MainViewModelFactory
-import com.raywenderlich.listmaker.ui.main.ui.detail.ListDetailViewModel
 import com.raywenderlich.listmaker.ui.main.ui.detail.ListItemsRecycleViewAdapter
 
 class ListDetailFragment : Fragment() {
@@ -22,7 +22,7 @@ class ListDetailFragment : Fragment() {
         fun newInstance() = ListDetailFragment()
     }
 
-    private lateinit var viewModel: ListDetailViewModel
+    private lateinit var viewModel: MainViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,7 +39,7 @@ class ListDetailFragment : Fragment() {
         viewModel = ViewModelProvider(
             requireActivity(),
             MainViewModelFactory(PreferenceManager.getDefaultSharedPreferences(requireActivity()))
-        ).get(ListDetailViewModel::class.java)
+        ).get(MainViewModel::class.java)
 
         val list: TaskList? = arguments?.getParcelable(MainActivity.INTENT_LIST_KEY)
         if (list != null) {
@@ -48,8 +48,8 @@ class ListDetailFragment : Fragment() {
         }
 
         val recyclerAdapter = ListItemsRecycleViewAdapter(viewModel.list)
-        //binding.listItemsRecyclerView.adapter = recyclerAdapter
-        //binding.listItemsRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+        binding.listItemsRecyclerView.adapter = recyclerAdapter
+        binding.listItemsRecyclerView.layoutManager = LinearLayoutManager(requireContext())
 
         viewModel.onTaskAdded = {
             recyclerAdapter.notifyDataSetChanged()

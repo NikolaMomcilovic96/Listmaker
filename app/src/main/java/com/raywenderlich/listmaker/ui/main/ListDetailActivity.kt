@@ -21,7 +21,7 @@ class ListDetailActivity : AppCompatActivity() {
 
     lateinit var list: TaskList
     lateinit var binding: ListDetailActivityBinding
-    lateinit var viewModel: ListDetailViewModel
+    lateinit var viewModel: MainViewModel
     lateinit var fragment: ListDetailFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,7 +33,7 @@ class ListDetailActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-        viewModel = ViewModelProvider(this, MainViewModelFactory(PreferenceManager.getDefaultSharedPreferences(this))).get(ListDetailViewModel::class.java)
+        viewModel = ViewModelProvider(this, MainViewModelFactory(PreferenceManager.getDefaultSharedPreferences(this))).get(MainViewModel::class.java)
         viewModel.list = intent.getParcelableExtra(MainActivity.INTENT_LIST_KEY)!!
 
         binding.addTaskButton.setOnClickListener {
@@ -73,7 +73,7 @@ class ListDetailActivity : AppCompatActivity() {
 
         val intent = Intent()
         intent.putExtras(bundle)
-        setResult(Activity.RESULT_OK, intent)
+        setResult(RESULT_OK, intent)
         super.onBackPressed()
     }
 }
